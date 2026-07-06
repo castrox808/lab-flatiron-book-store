@@ -45,3 +45,60 @@ const bookStore = {
 
 // Write your code here!
 
+
+
+const bookStoreTitle = document.querySelector('#header');
+
+
+if (bookStoreTitle && typeof bookStore !== 'undefined') {
+  bookStoreTitle.textContent = bookStore.name;
+  console.log("Successfully updated bookstore title to:", bookStore.name);
+} else {
+  console.error("Error: Could not find #header element or bookStore object.");
+}
+
+const bookList = document.querySelector('#book-list');
+
+if (bookList) {
+  
+ 
+  const placeholderItem = document.querySelector('#delete-this');
+  if (placeholderItem) {
+    placeholderItem.remove();
+  }
+
+
+  if (typeof bookStore !== 'undefined' && bookStore.books) {
+    
+    
+    bookStore.books.forEach((book, index) => {
+      
+     
+      const bookContainer = document.createElement('li');   // 'li' element: bookContainer
+      const bookTitle = document.createElement('h3');       // 'h3' element: bookTitle
+      const bookAuthor = document.createElement('p');        // 'p' element: bookAuthor
+      const bookImage = document.createElement('img');       // 'img' element: bookImage
+
+     
+      bookTitle.textContent = book.title;        // Set bookTitle text
+      bookAuthor.textContent = book.author;      // Set bookAuthor text
+      bookImage.src = book.imageUrl;             // Set bookImage src URL (Fixed to match your object!)
+      bookImage.alt = book.title;                // Accessibility alt text
+
+     
+      bookContainer.appendChild(bookTitle);
+      bookContainer.appendChild(bookAuthor);
+      bookContainer.appendChild(bookImage);
+
+      
+      bookList.appendChild(bookContainer);
+
+      console.log(`Rendered Book ${index + 1}: ${book.title}`);
+    });
+  } else {
+    console.error("Error: bookStore.books array is missing or undefined.");
+  }
+} else {
+  console.error("Error: Could not find #book-list container in the DOM.");
+}
+
